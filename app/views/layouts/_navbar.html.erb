@@ -22,7 +22,9 @@
         </form></li>
         <% if user_signed_in? %>
           <ul class="nav navbar-nav navbar-right">
-            <li><%#= link_to "#{current_user.name}, Logout", sessions_path, method: :delete, data: {confirm: 'Logout?'} %></li>
+            <li><%= link_to 'Watched Auctions', user_watches_path(current_user) %></li>
+            <li><%= link_to 'My Bids', auction_bids_path(current_user.id) %></li>
+            <li><%= link_to "#{current_user.name}, Logout", sessions_path, method: :delete, data: {confirm: 'Logout?'} %></li>
           </ul>
         <% else %>
           <li><%= link_to('Sign Up', new_user_path) %></li>

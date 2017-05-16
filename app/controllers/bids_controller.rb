@@ -13,24 +13,26 @@ class BidsController < ApplicationController
     @bid.user = current_user
     # respond_to do |format|
       if @bid.save
+        update_auction
         # format.html {redirect_to @auction, notice: "Bid submitted!"}
 
         redirect_to auction_path(@auction)
-      else
-        redirect_to @auction
-      end
+
       #   format.js {render :create_success}
       # else
       #   format.html { flash[:alert] = "Bid not created!"
       #                 redirect_to @auction }
       #   format.js {render :create_failure}
-    #   end
+      end
     # end
   end
 
   def index
-    @bid = Bid.new
-    @bids = current_user.bids
+    # @bid = Bid.new
+    # @bids = current_user.bids
+    @user = current_user
+    @auctions = @user.bids
+
   end
 
   private
@@ -41,7 +43,9 @@ class BidsController < ApplicationController
   end
 
   def update_auction
-
+    if @bid.price >= @auction.reserve_price
+      @auction.meet_reserve
     @auction.save
+    end
   end
 end

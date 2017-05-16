@@ -5,7 +5,8 @@ class Auction < ApplicationRecord
   has_many :bids, dependent: :destroy
   has_many :users, through: :bids
 
-
+  has_many :watches, dependent: :destroy
+  has_many :watchers, through: :watches, source: :user
 
   include AASM
 
@@ -34,13 +35,21 @@ class Auction < ApplicationRecord
     end
   end
 
+  def watched_by?(user)
+    watches.exists?(user: user)
+  end
+
+  def watch_for(user)
+    # watches.find_by(user: user)
+  end
+
   private
 
-  def set_reserved_default
-    self.reserve_price ||= 1
-  end
+    def set_reserved_default
+      self.reserve_price ||= 1
+    end
 
-  def set_price_default
-    self.current_price ||= 0
-  end
+    def set_price_default
+      self.current_price ||= 0
+    end
 end

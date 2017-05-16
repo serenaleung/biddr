@@ -18,9 +18,28 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   require 'factory_girl_rails'
+  # FactoryGirl.find_definitions
+  ENV["RAILS_ENV"] ||= 'test'
+  FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
+  FactoryGirl.find_definitions
+  require File.expand_path("../../config/environment", __FILE__)
+
+  require 'rspec/rails'
+  require 'rspec/autorun'
+  require "rails_helper"
+  require 'rubygems'
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
+
+  config.before(:all) do
+    FactoryGirl.reload
+  end
+
+
+   config.before do
+     FactoryGirl.find_definitions
+   end
 
   config.include FactoryGirl::Syntax::Methods
   config.expect_with :rspec do |expectations|

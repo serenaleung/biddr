@@ -4,7 +4,51 @@
   </div>
 </div>
 
-<div class='page-space-lg'></div>
+<div class=''></div>
+
+<div class='row'>
+  <div class='col-sm-12'>
+
+    <table class='table table-striped'>
+      <tr>
+        <th>Name</th>
+        <th>Current Bid</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>End Date</th>
+        <th>Bids</th>
+        <th>View</th>
+      </tr>
+      <% @auctionsElse.each do |auction| %>
+        <tr>
+          <td><%=link_to auction.title, auction_path(auction)%></td>
+          <td><%=auction.current_price%></td>
+          <td><%=truncate(auction.details, length: 45)%></td>
+          <td><%=auction.aasm_state.gsub('_', ' ').titleize%></td>
+          <td><%=auction.end_date%></td>
+          <td><%=auction.bids.count%></td>
+          <td>
+            <%# if user_signed_in? && can?(:watch, @auction) %>
+             <%# if @auction.watched_by?(current_user)  %>
+               <%#= link_to fa_icon("eye-slash"), auction_watch_path(@auction, @auction.watch_for(current_user)), method: :delete %>
+               <!-- <span> fa_icon("eye") </span> -->
+                 <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+             <%# else %>
+               <%#= link_to fa_icon("eye"), auction_watches_path(@auction), method: :post %>
+             <%# end %>
+           <%# end %>
+          </td>
+        </tr>
+      <%end%>
+    </table>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='col-sm-4'>
+    <h1>Auctions In-Progress</h1>
+  </div>
+</div>
 
 <div class='row'>
   <div class='col-sm-12'>
@@ -21,19 +65,23 @@
       </tr>
       <% @auctions.each do |auction| %>
         <tr>
-          <td><%=auction.title%></td>
+          <td><%=link_to auction.title, auction_path(auction)%></td>
           <td><%=auction.current_price%></td>
           <td><%=truncate(auction.details, length: 45)%></td>
           <td><%=auction.aasm_state.gsub('_', ' ').titleize%></td>
           <td><%=auction.end_date%></td>
           <td><%=auction.bids.count%></td>
           <td>
-            <%=link_to auction_path(auction) do %>
-              <i class='fa fa-eye' aria-hidden='true'></i>
-            <%end%>
+              <i class='glyphicon glyphicon-eye-open' aria-hidden='true'></i>
           </td>
         </tr>
       <%end%>
     </table>
   </div>
 </div>
+
+<script>
+$( ".glyphicon-eye-open" ).click(function() {
+  $( this ).toggleClass( "clicked" );
+});
+</script>

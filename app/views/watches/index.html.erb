@@ -1,0 +1,13 @@
+<div class='row'>
+  <div class='col-sm-4'>
+    <h1>Auctions Watched</h1>
+    <h5>By <%= current_user.name %></h5>
+  </div>
+
+  <ul>
+    <% @auctions.each do |auction| %>
+      <li><%= link_to auction.title, auction %></li>
+    <% end %>
+  </ul>
+
+</div>

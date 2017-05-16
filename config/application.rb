@@ -16,9 +16,16 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+
+
 module Biddr
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
+    console do
+      FactoryGirl.definition_file_paths << Pathname.new("../factories")
+      FactoryGirl.definition_file_paths.uniq!
+      FactoryGirl.find_definitions
+    end
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
   end

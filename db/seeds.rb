@@ -6,6 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.create(name: "Serena", email: "s@e.com", password: "123", password_confirmation: "123")
+
+
 # Create users
 3.times do
   User.create(name: Faker::Name.first_name,
@@ -20,7 +23,7 @@ end
 30.times do
   user = User.all.sample
 
-  a = Auction.create(title: Faker::Hacker.say_something_smart,
+  a = Auction.create(title: Faker::App.name,
                      details: Faker::Hipster.paragraph,
                      reserve_price: rand(100),
                      user_id: user.id,

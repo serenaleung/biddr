@@ -38,11 +38,6 @@ RSpec.describe AuctionsController, type: :controller do
         expect(count_after).to eq(count_before +1)
       end
 
-      it 'redirects to the auction index page' do
-        valid_request
-        expect(response).to redirect_to(auctions)
-      end
-
     end
   end
 end

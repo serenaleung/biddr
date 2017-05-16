@@ -36,6 +36,7 @@ gem 'faker'
 gem 'aasm'
 gem 'rspec-rails', '~>3.5'
 gem 'rails-controller-testing'
+gem 'cancancan', '~> 1.10'
 
 # gem 'sass-rails', '>= 3.2'
 # Use Redis adapter to run Action Cable in production
@@ -49,7 +50,7 @@ gem 'bcrypt', '~> 3.1.7'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', '~> 4.0', require: false
 end
 
 group :development do

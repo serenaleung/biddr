@@ -1,7 +1,9 @@
 <%= simple_form_for @auction do |f| %>
   <%= f.input :title %>
   <%= f.input :details %>
-  <% f.input :end_date, class: 'control-label'%>
+  <%= f.input :current_price %>
+  <%= f.input :end_date , {class: "inner-addon left-addon glyphicon glyphicon-calendar"}%><i class="glyphicon glyphicon-calendar"></i>
+
 
   <!-- <div class="form-group">
       <div class='input-group date' id='datetimepicker1'>
@@ -18,7 +20,6 @@
         });
     </script> -->
 
-<%= console %>
 
   <%= f.input :reserve_price, as: :integer %>
   <%= f.submit 'Save', class: "btn btn-primary" %>

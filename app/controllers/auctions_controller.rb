@@ -1,7 +1,10 @@
 class AuctionsController < ApplicationController
+
+  before_action :authenticate_user!, except: [:index, :show]
   def index
-    @auctions = Auction.all
-    # @auctions = Auction.where.not(aasm_state: ['draft', 'won', 'canceled']).order(created_at: :desc).page(params[:page])
+    @auctions = Auction.where.not(aasm_state: ['pending', 'published', 'reserve_met']).order(created_at: :desc)
+    @auctionsElse = Auction.where.not(aasm_state: ['draft', 'won', 'canceled']).order(created_at: :desc)
+    @auction = Auction.last
   end
 
   def new
@@ -12,6 +15,7 @@ class AuctionsController < ApplicationController
     @auction = Auction.find params[:id]
     @bids = @auction.bids.order(created_at: :desc)
     @newbid = @auction.bids.new
+
   end
 
   def create
@@ -32,6 +36,6 @@ class AuctionsController < ApplicationController
   end
 
   def auction_params
-    params.require(:auction).permit(:title, :details, :end_date, :reserve_price)
+    params.require(:auction).permit(:title, :details, :current_price, :end_date, :reserve_price)
   end
 end
