@@ -4,7 +4,8 @@ class WatchesController < ApplicationController
 
   def index
     user = current_user
-    # @auctions = user.watched_auctions
+    @auctions = Auction.find params[:id]
+    current_user.watched_auctions
     render 'watches/index'
   end
 

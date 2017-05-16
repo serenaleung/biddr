@@ -20,7 +20,7 @@ RSpec.configure do |config|
   require 'factory_girl_rails'
   # FactoryGirl.find_definitions
   ENV["RAILS_ENV"] ||= 'test'
-  FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
+  # FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
   FactoryGirl.find_definitions
   require File.expand_path("../../config/environment", __FILE__)
 
@@ -32,14 +32,14 @@ RSpec.configure do |config|
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
 
-  config.before(:all) do
-    FactoryGirl.reload
-  end
-
-
-   config.before do
-     FactoryGirl.find_definitions
-   end
+  # config.before(:all) do
+  #   FactoryGirl.reload
+  # end
+  #
+  #
+  #  config.before do
+  #    FactoryGirl.find_definitions
+  #  end
 
   config.include FactoryGirl::Syntax::Methods
   config.expect_with :rspec do |expectations|
