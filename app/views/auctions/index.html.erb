@@ -1,0 +1,39 @@
+<div class='row'>
+  <div class='col-sm-4'>
+    <h1>Auctions Available</h1>
+  </div>
+</div>
+
+<div class='page-space-lg'></div>
+
+<div class='row'>
+  <div class='col-sm-12'>
+
+    <table class='table table-striped'>
+      <tr>
+        <th>Name</th>
+        <th>Current Bid</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>End Date</th>
+        <th>Bids</th>
+        <th>View</th>
+      </tr>
+      <% @auctions.each do |auction| %>
+        <tr>
+          <td><%=auction.title%></td>
+          <td><%=auction.current_price%></td>
+          <td><%=truncate(auction.details, length: 45)%></td>
+          <td><%=auction.aasm_state.gsub('_', ' ').titleize%></td>
+          <td><%=auction.end_date%></td>
+          <td><%=auction.bids.count%></td>
+          <td>
+            <%=link_to auction_path(auction) do %>
+              <i class='fa fa-eye' aria-hidden='true'></i>
+            <%end%>
+          </td>
+        </tr>
+      <%end%>
+    </table>
+  </div>
+</div>

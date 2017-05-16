@@ -1,0 +1,82 @@
+<div class='row'>
+  <div class='col-sm-offset-4 col-sm-8'>
+    <h1><%=@auction.title%></h1>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='col-sm-4'>
+  </div>
+  <div class='col-sm-8'>
+    <h4>Current Price: <%=number_to_currency(@auction.current_price)%> </h4>
+    <h5>Reserve Price: <%=number_to_currency(@auction.reserve_price)%></h5>
+    <h5>Ends On: <%=@auction.end_date%></h5>
+  </div>
+</div>
+
+<div class='page-space-lg'></div>
+
+<div class='row'>
+  <div class='col-sm-4'>
+    <p class='text-right'><b>Current State</b></p>
+    <p class='text-right'><%=@auction.aasm_state.gsub("_", " ").titleize%></p>
+    <% if user_signed_in? && current_user == @auction.user%>
+      <div class='text-right'>
+        <%=link_to 'Publish', auction_publishings_path(@auction), method: :post, class:'btn btn-default btn-xs'%>
+      </div>
+    <%end%>
+  </div>
+  <div class='col-sm-8'>
+    <p><%=@auction.details%></p>
+  </div>
+</div>
+
+
+<% if user_signed_in? %>
+  <div class='page-space'></div>
+
+  <div class='row'>
+    <div class='col-sm-4'>
+      <p class='text-right'>New Bid</p>
+    </div>
+    <div class='col-sm-8'>
+      <div class='col-sm-12'>
+        <%= render '/bids/form', {auction: @auction, bid: @bid} %>
+      </div>
+    </div>
+  </div>
+<%end%>
+
+<div class='row'>
+  <div class='col-sm-offset-4 col-sm-4'>
+    <hr />
+  </div>
+</div>
+
+<div class='row'>
+  <div class='col-sm-4'>
+  </div>
+  <div class='col-sm-8'>
+    <div class='row'>
+      <div class='col-sm-6'>
+        <h4>Current Bids</h4>
+      </div>
+      <div class='in-column-space-sm'></div>
+    </div>
+    <%if @bids.count > 0 %>
+      <div class='row'>
+        <div class='col-sm-12'>
+          <% @bids.each do |bid| %>
+            <%=render '/bids/bid', bid: bid%>
+          <%end%>
+        </div>
+      </div>
+    <%else%>
+      <div class='row'>
+        <div class='col-sm-12'>
+          <p>There are currently no bids.</p>
+        </div>
+      </div>
+    <%end%>
+  </div>
+</div>
